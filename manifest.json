@@ -1,0 +1,28 @@
+{
+    "name": "docMac",
+    "short_name": "docMac",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/icons/favicon-72x72.png",
+        "type": "image/png",
+        "sizes": "72x72"
+      },
+      {
+        "src": "/icons/favicon-96x96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "src": "/icons/favicon-96x96.png",
+        "type": "image/png",
+        "sizes": "96x96",
+        "purpose": "maskable"
+      }
+    ]
+  }
+  
