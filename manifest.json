@@ -18,9 +18,9 @@
         "sizes": "96x96"
       },
       {
-        "src": "/icons/favicon-72x72-96x96.png",
+        "src": "/icons/maskable_icon.png",
         "type": "image/png",
-        "sizes": "96x96",
+        "sizes": "196x196",
         "purpose": "maskable"
       }
     ]
