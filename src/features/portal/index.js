@@ -19,7 +19,7 @@ const PortalModule = () => {
           <div className="mx-auto max-w-xl text-center sm:text-left">
             <DocMacFreeCaptionLogo />
 
-            <p className="hidden text-base-100 md:mt-4 md:flex text-white">
+            <p className="hidden md:mt-4 md:flex text-white">
               Reception is your clinic’s face, your first point of contact.
               docMac manages your appointments, billing and patient’s queues.
               Your patient management made easy.
