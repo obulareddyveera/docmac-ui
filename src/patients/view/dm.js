@@ -39,7 +39,7 @@ const FrontDeskPatientDml = () => {
       <Link to={from?.pathname} className="btn btn-sm m-4">
         Back
       </Link>
-      <div className="grid grid-cols-1 gap-2 bg-gray-100 p-2 h-full w-full">
+      <div className="grid grid-cols-1 gap-2 p-2 h-full w-full">
         <Formik
           initialValues={{ ...state.customer }}
           validationSchema={patientDmSchema}

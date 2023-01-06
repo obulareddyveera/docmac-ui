@@ -38,9 +38,14 @@ const EmployeeTable = ({ rows, count }) => {
     );
     return (
       <>
-        <span className="text-sm opacity-50">{item.details}</span>
+        <span className="text-sm opacity-50">{item && item.details}</span>
       </>
     );
+  };
+  const getStatusBadge = (status) => {
+    if (status === "DRAFT") {
+      return <div class="badge badge-secondary">{status}</div>;
+    }
   };
   return (
     <>
@@ -54,6 +59,8 @@ const EmployeeTable = ({ rows, count }) => {
                 <th>Email</th>
                 <th>Mobile</th>
                 <th>Privileges</th>
+                <th>Status</th>
+                <th>Join Date</th>
                 <th></th>
               </tr>
             </thead>
@@ -96,10 +103,12 @@ const EmployeeTable = ({ rows, count }) => {
                         <td>{rec.email}</td>
                         <td>{rec.mobile}</td>
                         <td>{getPrivsDisplayValue(rec)}</td>
+                        <td>{getStatusBadge(rec.status)}</td>
+                        <td>{rec.doj}</td>
                         <th>
                           <div className="btn-group">
                             <Link
-                              to={`/employee/${rec.id}`}
+                              to={`/board/admin/employees/${rec.id}`}
                               state={{ from: location, personId: rec.id }}
                               className="btn btn-primary btn-xs"
                             >
@@ -157,10 +166,11 @@ const EmployeeTable = ({ rows, count }) => {
                   </span>
                 </div>
                 <div>{getPrivsDisplayValue(rec)}</div>
+                <div>{getStatusBadge(rec.status)}</div>
                 <div>
                   <div className="btn-group">
                     <Link
-                      to={`/employee/${rec.id}`}
+                      to={`/board/admin/employees/${rec.id}`}
                       state={{ from: location, personId: rec.id }}
                       className="btn btn-primary btn-xs"
                     >

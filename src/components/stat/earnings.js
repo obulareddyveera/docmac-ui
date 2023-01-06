@@ -16,19 +16,19 @@ const Earnings = () => {
               </div>
               <div className="stat-desc">↗︎ out of 6</div>
             </div>
-            <div className="stat bg-[#FFD55A]">
-              <div className="stat-title">Nurses</div>
+            <div className="stat text-white bg-[#FFD55A]">
+              <div className="text-gray-800 stat-title">Nurses</div>
               <div className="flex">
                 <FontAwesomeIcon className="w-3 h-3" icon={faUserNurse} />
                 <div className="stat-value">7</div>
               </div>
-              <div className="stat-desc">↗︎ out of 7</div>
+              <div className="text-gray-800 stat-desc">↗︎ out of 7</div>
             </div>
           </div>
 
           <div className="flex">
-            <div className=" w-full block bg-[#05386B] px-5 py-3 text-center text-xs font-bold uppercase text-white transition">
-              <span className="text-gray-200  text-xl">Earnings</span>
+            <div className=" w-full block bg-[#05386B] px-5 py-3 text-white text-center text-xs font-bold uppercase transition">
+              <span className="text-xl">Earnings</span>
               <span className="text-md">
                 {" "}
                 @ {moment(new Date()).format("dddd")},{" "}

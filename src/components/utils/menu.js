@@ -36,7 +36,7 @@ const MenuOptions = () => {
         {
           displayName: "Admin",
           icon: faUserNinja,
-          link: "/admin",
+          link: "/board/admin/dashboard",
         },
         {
           displayName: "Front Desk",

@@ -5,7 +5,6 @@ import React from "react";
 const MobileField = ({ errorslice, id, label, ...props }) => {
   const { touched, handleChange, handleBlur, values, ...formik } =
     useFormikContext();
-  console.log("--= MobileField errorslice ", errorslice, values[id]);
   const errors = { ...formik.errors, ...errorslice?.messages };
   return (
     <>
@@ -31,16 +30,20 @@ const MobileField = ({ errorslice, id, label, ...props }) => {
             </span>
           )}
         </label>
-        <InputMask
-          mask="+\9\1 999 9999 999"
-          maskChar=" "
-          type="text"
-          placeholder="Type here"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          {...props}
-        />
+        <label class="input-group">
+          <span>+91 </span>
+          <InputMask
+            mask="999 9999 999"
+            maskChar=" "
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            {...props}
+          />
+        </label>
+
         {errors && errors[id] && (touched[id] || values[id]) && (
           <label className="label">
             <span className="label-text-alt text-red-600">{errors[id]}</span>

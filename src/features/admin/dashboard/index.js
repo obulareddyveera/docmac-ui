@@ -4,14 +4,11 @@ import {
   faPiggyBank,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { generateKeyEntity } from "../../../services/utils";
 import Earnings from "../../../components/stat/earnings";
 import Attendence from "../../../components/stat/attendence";
 import SchedulesMaintain from "../../../components/stat/schedulesMaintain";
-import ProtectedRoute from "../../../components/utils/protectedRoute";
-import { Link } from "react-router-dom";
 
-const AdminDesk = () => {
+const AdminDashboard = () => {
   const tabOptions = [
     {
       displayName: "Employees",
@@ -42,27 +39,8 @@ const AdminDesk = () => {
         <SchedulesMaintain />
         <Attendence />
       </div>
-      <div className="flex flex-col items-center justify-center mt-1 pt-3 border-b-3 border-white w-full">
-        <div className="tabs">
-          {tabOptions.map((rec, idx) => {
-            return (
-              <React.Fragment key={generateKeyEntity("adminTabs", idx)}>
-                <Link
-                  to={rec.link}
-                  className={`tab tab-bordered ${
-                    rec.isActive ? "tab-active" : ""
-                  }`}
-                >
-                  {rec.displayName}
-                </Link>
-              </React.Fragment>
-            );
-          })}
-        </div>
-        <ProtectedRoute />
-      </div>
     </>
   );
 };
 
-export default AdminDesk;
+export default AdminDashboard;

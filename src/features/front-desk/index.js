@@ -26,7 +26,7 @@ const FrontDeskFeature = () => {
   return (
     <>
       <LayoutTemplate>
-        <div className="flex flex-col items-center justify-center  bg-gray-100">
+        <div className="flex flex-col items-center justify-center">
           <div className="container">
             <div className="m-2 grid grid-rows-1 gap-1 align-center justify-end">
               <div className="dropdown dropdown-end">
@@ -35,7 +35,7 @@ const FrontDeskFeature = () => {
                 </label>
                 <ul
                   tabIndex="0"
-                  className="dropdown-content menu p-2 shadow bg-gray-100 rounded-box w-52"
+                  className="dropdown-content menu p-2 shadow rounded-box w-52"
                 >
                   <li>
                     <Link>Item 1</Link>

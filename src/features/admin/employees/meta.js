@@ -1,10 +1,10 @@
-import DatepickerField from "../../components/datepicker";
-import AadharField from "../../components/fields/aadharField";
-import GenderInputField from "../../components/fields/genderField";
-import MobileField from "../../components/fields/mobileField";
-import PanNumberField from "../../components/fields/panNumberField";
-import TextareaField from "../../components/fields/textareaField";
-import TextboxField from "../../components/fields/textboxField";
+import DatepickerField from "../../../components/datepicker";
+import AadharField from "../../../components/fields/aadharField";
+import GenderInputField from "../../../components/fields/genderField";
+import MobileField from "../../../components/fields/mobileField";
+import PanNumberField from "../../../components/fields/panNumberField";
+import TextareaField from "../../../components/fields/textareaField";
+import TextboxField from "../../../components/fields/textboxField";
 
 export const generalFields = [
   {

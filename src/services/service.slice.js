@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   code: 200,
+  notify: {},
 };
 
 export const serviceSlice = createSlice({
@@ -15,8 +16,20 @@ export const serviceSlice = createSlice({
         code: action.payload.code,
       };
     },
+    notify: (state, action) => {
+      return {
+        ...state,
+        notify: {
+          status: action.payload.status,
+          message: action.payload.message,
+          kickStartTime: action.payload.kickStartTime,
+          className: action.payload.className,
+          icon: action.payload.icon,
+        }
+      };
+    }
   },
 });
 
-export const { spinner } = serviceSlice.actions;
+export const { spinner, notify } = serviceSlice.actions;
 export default serviceSlice.reducer;

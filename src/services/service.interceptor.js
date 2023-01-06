@@ -23,17 +23,14 @@ const interceptor = (store) => {
       if (data && data.tokens) {
         sessionStorage.setItem("docMacTokens", JSON.stringify(data.tokens));
       }
-      console.log("--== Interceptor :: use ", next);
       store.dispatch(spinner({ status: "success", code: 200 }));
       return Promise.resolve(next);
     },
     async (error) => {
       const originalRequest = error.config;
-      console.log("--== 1 Interceptor ", error.response);
       if (error.response.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true;
         const docMacTokens = JSON.parse(sessionStorage.getItem("docMacTokens"));
-        console.log("--== 2 Interceptor ", docMacTokens);
         const refreshTokenResp = await fetch(`${DOCMAC_API_URL}/auth/refresh`, {
           method: "POST", // or 'PUT'
           headers: {
@@ -45,20 +42,12 @@ const interceptor = (store) => {
           }),
         }).then((response) => response.json());
         const { accessToken } = refreshTokenResp;
-        console.log(
-          "--== 3 Interceptor ",
-          accessToken,
-          refreshTokenResp,
-          originalRequest
-        );
         sessionStorage.setItem(
           "docMacTokens",
           JSON.stringify({ ...docMacTokens, accessToken })
         );
-        console.log("--== 4 Interceptor ", { ...docMacTokens, accessToken });
         Axios.defaults.headers.common["Authorization"] =
           "Bearer " + accessToken;
-        console.log("--== 5 Interceptor ", originalRequest);
         return Axios(originalRequest);
       } else {
         store.dispatch(

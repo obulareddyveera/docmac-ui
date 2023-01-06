@@ -8,13 +8,12 @@ const ProtectedRoute = (props) => {
     return state.service;
   });
   const token = sessionStorage.getItem("docMacTokens");
-  console.log('--=== ProtectedRoute ', code, token);
   if ([401].includes(code)) {
     sessionStorage.removeItem("docMacTokens");
     return <Navigate to="/login" />;
   } else if (token && JSON.parse(token) && JSON.parse(token).accessToken) {
     return (
-      <div className="flex flex-col w-full items-center justify-center  bg-gray-100">
+      <div className="flex flex-col w-full items-center justify-center">
         <div className="container">
           <Outlet />
         </div>

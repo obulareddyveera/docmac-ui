@@ -108,7 +108,6 @@ const patientDmSchema = Yup.object().shape({
   patientAadhar: Yup.string()
     .required("Required")
     .test("patientAadhar", "Please enter valid Aadhar number", (value) => {
-      console.log("--== patientAadhar :: value ", value);
       if (value && value.replace(/\s+/g, "").length > 0) {
         let regex = new RegExp(/^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$/);
         return regex.test(value);

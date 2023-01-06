@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFormikContext } from "formik";
 import { useSelector } from "react-redux";
-import { generateKeyEntity } from "../../services/utils";
+import { generateKeyEntity } from "../../../services/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -23,25 +23,6 @@ const EmployeeQulificationForm = () => {
   const [state, setState] = useState();
   const { errorslice, status, item } = useSelector((state) => state.employee);
 
-  useEffect(() => {
-    if (item && item.ProfileSnap && item.Privs) {
-      const profileSnaptemp = [];
-      item.ProfileSnap.forEach((entity) => {
-        profileSnaptemp.push(entity.title);
-      });
-      const privsTemp = [];
-      item.Privs.forEach((entity) => {
-        privsTemp.push(entity.name);
-      });
-      setState((prevState) => {
-        return {
-          ...prevState,
-          selectedProfileSnapTitles: profileSnaptemp,
-          selectedPrivsName: privsTemp,
-        };
-      });
-    }
-  }, [item]);
   const handleAddQualification = () => {
     const selectedRecord = qualificationOptions.find(
       (rec) => rec.id === values.title
@@ -78,78 +59,72 @@ const EmployeeQulificationForm = () => {
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-4 p-4">
         <div>
           <div className="divider">Qualifications</div>
-          <>
-            {values.selectedProfileSnapTitles.length !==
-              qualificationOptions.length && (
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-                <select
-                  id="title"
-                  onChange={handleChange}
-                  value={values.title}
-                  name="title"
-                  className="select select-md select-bordered w-full"
-                >
-                  <option>Pick suitable</option>
-                  {qualificationOptions.map((rec, index) => {
-                    return (
-                      <React.Fragment key={generateKeyEntity("title", index)}>
-                        {!values.selectedProfileSnapTitles.includes(rec.id) && (
-                          <option value={rec.id}>{rec.displayName}</option>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </select>
-                <>{getQualificationRecComponent(values.title, values)}</>
-
-                <button
-                  className="btn btn-md mt-2 md:mt-0 w-full"
-                  onClick={() => handleAddQualification()}
-                  disabled={
-                    !values[values.title] || values[values.title] === ""
-                  }
-                >
-                  Add
-                </button>
-              </div>
-            )}
-            <div className="py-2">
-              {values &&
-                values.ProfileSnap &&
-                values.ProfileSnap.map((rec, index) => {
+          {values.selectedProfileSnapTitles.length !==
+            qualificationOptions.length && (
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+              <select
+                id="title"
+                onChange={handleChange}
+                value={values.title}
+                name="title"
+                className="select select-md select-bordered w-full"
+              >
+                <option>Pick suitable</option>
+                {qualificationOptions.map((rec, index) => {
                   return (
-                    <React.Fragment
-                      key={generateKeyEntity("ProfileSnap", index)}
-                    >
-                      <div
-                        className="grid grid-cols-2 border-b-2 border-white"
-                        key={generateKeyEntity("profileSnap", index)}
-                      >
-                        <div className="bg-gray-600 py-2 px-1 text-white text-lg">
-                          {rec.title}
-                        </div>
-                        <div className="bg-gray-500 py-2 px-1">
-                          <div className="flex justify-between">
-                            <div className="text-white text-center overflow-hidden text-ellipsis px-1">
-                              {rec.details}
-                            </div>
-                            <button
-                              onClick={() => removeQualification(rec.id, index)}
-                              className="btn btn-circle btn-sm"
-                            >
-                              <FontAwesomeIcon
-                                icon={faTimes}
-                                className="w-4 h-4"
-                              />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                    <React.Fragment key={generateKeyEntity("title", index)}>
+                      {!values.selectedProfileSnapTitles.includes(rec.id) && (
+                        <option value={rec.id}>{rec.displayName}</option>
+                      )}
                     </React.Fragment>
                   );
                 })}
+              </select>
+              <>{getQualificationRecComponent(values.title, values)}</>
+
+              <button
+                className="btn btn-md mt-2 md:mt-0 w-full"
+                onClick={() => handleAddQualification()}
+                disabled={!values[values.title] || values[values.title] === ""}
+              >
+                Add
+              </button>
             </div>
-          </>
+          )}
+          <div className="py-2">
+            {values &&
+              values.ProfileSnap &&
+              values.ProfileSnap.map((rec, index) => {
+                return (
+                  <React.Fragment key={generateKeyEntity("ProfileSnap", index)}>
+                    <div
+                      className="grid grid-cols-2 border-b-2 border-white"
+                      key={generateKeyEntity("profileSnap", index)}
+                    >
+                      <div className="bg-gray-600 py-2 px-1 text-white text-lg">
+                        {rec.title}
+                      </div>
+                      <div className="bg-gray-500 py-2 px-1">
+                        <div className="flex justify-between">
+                          <div className="text-white text-center overflow-hidden text-ellipsis px-1">
+                            {rec.details}
+                          </div>
+                          <button
+                            onClick={() => removeQualification(rec.id, index)}
+                            className="btn btn-circle btn-sm"
+                          >
+                            <FontAwesomeIcon
+                              icon={faTimes}
+                              className="w-4 h-4"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                );
+              })}
+          </div>
         </div>
         <div>
           <div className="divider">Privileges & Roles</div>
@@ -162,12 +137,7 @@ const EmployeeQulificationForm = () => {
                       <span className="label-text pl-2">{rules.name}</span>
                       <input
                         type="checkbox"
-                        checked={
-                          values.selectedPrivsName.includes(rules.name) ||
-                          values.privileges[index].isActive
-                            ? true
-                            : false
-                        }
+                        checked={rules.isActive}
                         id={`privileges[${index}].isActive`}
                         name={`privileges[${index}].isActive`}
                         onBlur={handleBlur}
@@ -187,12 +157,7 @@ const EmployeeQulificationForm = () => {
                       <span className="label-text pl-2">{rules.name}</span>
                       <input
                         type="checkbox"
-                        checked={
-                          values.selectedPrivsName.includes(rules.name) ||
-                          values.roles[index].isActive
-                            ? true
-                            : false
-                        }
+                        checked={rules.isActive}
                         id={`roles[${index}].isActive`}
                         name={`roles[${index}].isActive`}
                         onBlur={handleBlur}

@@ -13,7 +13,7 @@ const ActiveTabView = () => {
   const location = useLocation();
   return (
     <>
-      <div className="grid grid-cols-1 gap-2 bg-gray-100 p-2">
+      <div className="grid grid-cols-1 gap-2 p-2">
         <div className="flex justify-between p-2">
           <div className="badge badge-primary badge-lg">98</div>
           <Link

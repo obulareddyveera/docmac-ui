@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FieldArray, Formik, useFormikContext } from "formik";
+import React from "react";
+import { FieldArray, useFormikContext } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
-import TextboxField from "../../components/fields/textboxField";
-import { generateKeyEntity } from "../../services/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { isValidDataEntity } from "./meta";
+
+import TextboxField from "../../../components/fields/textboxField";
+import { generateKeyEntity } from "../../../services/utils";
+import DatepickerField from "../../../components/datepicker";
 
 const EmployeePayrollForm = () => {
   const {
@@ -17,11 +17,22 @@ const EmployeePayrollForm = () => {
     handleChange,
     setFieldValue,
     errors,
-    handleSubmit
+    handleSubmit,
   } = useFormikContext();
 
   return (
     <>
+      <div className="grid grid-cols-1">
+        <DatepickerField
+          id="doj"
+          placeholder={"Date Of Joining"}
+          name="doj"
+          label="Date Of Joining"
+          value={values.doj}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+      </div>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-4 p-4">
         <div>
           <div className="divider">Bank Details</div>
@@ -31,6 +42,7 @@ const EmployeePayrollForm = () => {
               <>
                 <button
                   className="btn btn-sm btn-success text-white"
+                  type="button"
                   onClick={() => setFieldValue("showAddNewAccount", true)}
                 >
                   Add Bank Account
@@ -185,11 +197,13 @@ const EmployeePayrollForm = () => {
               <div>Salary</div>
               <div>
                 <TextboxField
-                  id="salary"
+                  id="wages"
                   placeholder={"Enter salary"}
-                  name="salary"
+                  name="wages"
                   hideLabel={true}
-                  value={values.salary}
+                  value={values.wages}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </div>
             </div>
@@ -202,6 +216,8 @@ const EmployeePayrollForm = () => {
                   name="referal"
                   hideLabel={true}
                   value={values.referal}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </div>
             </div>
@@ -213,13 +229,15 @@ const EmployeePayrollForm = () => {
         <div className="flex justify-between">
           <button
             className="btn btn-sm btn-secondary"
-            onClick={() => setFieldValue("activeStepIndex", values.activeStepIndex - 1)}
+            onClick={() =>
+              setFieldValue("activeStepIndex", values.activeStepIndex - 1)
+            }
           >
             Previous
           </button>
           <button
             className="btn btn-sm btn-success text-white"
-            onClick={() => handleSubmit(values)}
+            type="submit"
             disabled={!isValid}
           >
             Finish

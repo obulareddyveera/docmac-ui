@@ -61,6 +61,6 @@ export default Yup.object().shape({
     accountNo: Yup.string().required("Required"),
     ifscCode: Yup.string().required("Required"),
   }),
-  salary: Yup.string().required("Required"),
+  wages: Yup.string().required("Required"),
   referal: Yup.string().required("Required"),
 });

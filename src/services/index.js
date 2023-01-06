@@ -8,7 +8,7 @@ function ServiceBase() {
     return Axios.post(api, params);
   };
   this.put = (api, params) => {
-    return Axios.post(api, params);
+    return Axios.put(api, params);
   };
 }
 export default new ServiceBase();

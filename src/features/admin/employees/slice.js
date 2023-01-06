@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import ServiceBase from "../services/index";
-import { DOCMAC_API_URL } from "../config";
+import ServiceBase from "../../../services/index";
+import { DOCMAC_API_URL } from "../../../config";
+import { buildApiEmployeePayload } from "./utils";
 const initialState = {
   status: "",
   item: {},
@@ -9,6 +10,7 @@ const initialState = {
 
 export const EMPLOYEE_SLICE_STATE = {
   POST_API_EMPLOYEE_FULLFILLED: "POST_API_EMPLOYEE_FULLFILLED",
+  PUT_API_EMPLOYEE_FULLFILLED: "PUT_API_EMPLOYEE_FULLFILLED",
   GET_ALL_API_EMPLOYEE_FULLFILLED: "GET_ALL_API_EMPLOYEE_FULLFILLED",
   GET_PERSON_API_EMPLOYEE_FULLFILLED: "GET_PERSON_API_EMPLOYEE_FULLFILLED",
 };
@@ -25,23 +27,26 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addAsync.fulfilled, (state, action) => {
+      .addCase(postEmployeeAsync.fulfilled, (state, action) => {
         const { data } = action.payload;
-        console.log("--== addAsync ", action.payload);
         state.status = EMPLOYEE_SLICE_STATE.POST_API_EMPLOYEE_FULLFILLED;
+        state.item = data.item;
+        state.errorslice = data.error;
+      })
+      .addCase(putEmployeeAsync.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        state.status = EMPLOYEE_SLICE_STATE.PUT_API_EMPLOYEE_FULLFILLED;
         state.item = data.item;
         state.errorslice = data.error;
       })
       .addCase(fetchAsync.fulfilled, (state, action) => {
         const { data } = action.payload.data;
-        console.log("--== fetchAsync ", action.payload);
         state.status = EMPLOYEE_SLICE_STATE.GET_ALL_API_EMPLOYEE_FULLFILLED;
         state.data = data;
         state.errorslice = data.error;
       })
       .addCase(fetchPersonByIdAsync.fulfilled, (state, action) => {
         const { data } = action.payload;
-        console.log("--== fetchPersonByIdAsync ", data);
         state.status = EMPLOYEE_SLICE_STATE.GET_PERSON_API_EMPLOYEE_FULLFILLED;
         state.item = data.item;
         state.errorslice = data.error;
@@ -49,10 +54,19 @@ export const authSlice = createSlice({
   },
 });
 //**  */
-export const addAsync = createAsyncThunk(
-  `postApiEmployee`,
-  async (payload) =>
-    await ServiceBase.post(`${DOCMAC_API_URL}/api/employee`, payload)
+export const postEmployeeAsync = createAsyncThunk(
+  `postEmployeeAsync`,
+  async (params) => {
+    const paylaod = buildApiEmployeePayload(params)
+    return await ServiceBase.post(`${DOCMAC_API_URL}/api/employee`, paylaod);
+  }
+);
+export const putEmployeeAsync = createAsyncThunk(
+  `putEmployeeAsync`,
+  async (params) => {
+    const paylaod = buildApiEmployeePayload(params)
+    return await ServiceBase.put(`${DOCMAC_API_URL}/api/employee/${params.id}`, paylaod);
+  }
 );
 export const fetchAsync = createAsyncThunk(
   `getApiEmployee`,
