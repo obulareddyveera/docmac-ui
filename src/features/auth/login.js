@@ -8,13 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import DocMacFreeCaptionLogo from "../../components/logo/freeCapLogo";
+import MobileField from "../../components/fields/mobileField";
 
 const LoginFeature = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { exception } = useSelector((state) => state.auth);
   const handleLoginAction = (values) => {
-    dispatch(loginClinicAsync(values));
+    dispatch(loginClinicAsync({...values, mobileNumber: values.mobileNumber.replaceAll(' ', '').trim()}));
   };
   const token = sessionStorage?.getItem("docMacTokens");
 
@@ -45,46 +46,89 @@ const LoginFeature = () => {
               )}
               <Formik
                 initialValues={{
+                  mobileNumber: "",
                   email: "",
                   password: "",
+                  isEmailAcceptedSignIn: false,
                 }}
                 validate={(values) => {
                   const errors = {};
-                  if (
-                    !values.email ||
-                    (values.email && values.email.trim().length === 0)
-                  ) {
-                    errors.email = "Required";
-                  } else if (
-                    !values.email.match(
-                      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    )
-                  ) {
-                    errors.email = "Please enter valid Email Address";
+                  if (values.isEmailAcceptedSignIn) {
+                    if (
+                      !values.email ||
+                      (values.email && values.email.trim().length === 0)
+                    ) {
+                      errors.email = "Required";
+                    } else if (
+                      !values.email.match(
+                        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                      )
+                    ) {
+                      errors.email = "Please enter valid Email Address";
+                    }
+                  } else {
+                    if (
+                      !values.mobileNumber ||
+                      (values.mobileNumber &&
+                        values.mobileNumber.replaceAll(" ", "").trim().length !==
+                          10)
+                    ) {
+                      errors.email = "Required";
+                    }
                   }
                   if (
                     !values.password ||
                     (values.password && values.password.trim().length === 0)
                   ) {
                     errors.password = "Required";
-                  } else if (values.password.length < 8) {
-                    errors.password = "Please enter at least 8 digit passcode";
+                  } else if (values.password.length < 4) {
+                    errors.password = "Please enter at least 4 digit passcode";
                   }
 
                   return errors;
                 }}
               >
-                {({ isValid, touched, values }) => (
+                {({ isValid, touched, values, handleBlur, handleChange }) => (
                   <>
                     <div className="flex flex-col w-full border-opacity-50">
+                      <div class="flex justify-end">
+                        <div class="form-control">
+                          <label class="cursor-pointer label justify-center">
+                            <input
+                              id="isEmailAcceptedSignIn"
+                              name="isEmailAcceptedSignIn"
+                              type="checkbox"
+                              class="toggle toggle-accent"
+                              checked={values.isEmailAcceptedSignIn}
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                            />
+                            <span class="label-text ml-1">
+                              Email accepted sign-in
+                            </span>
+                          </label>
+                        </div>
+                      </div>
                       <div>
-                        <TextboxField
-                          type="email"
-                          label="Email"
-                          placeholder="Email"
-                          id="email"
-                          name="email"
-                        />
+                        {values.isEmailAcceptedSignIn ? (
+                          <TextboxField
+                            type="email"
+                            label="Email"
+                            placeholder="Email"
+                            id="email"
+                            name="email"
+                          />
+                        ) : (
+                          <>
+                            <MobileField
+                              type="text"
+                              label="Phone Number"
+                              placeholder="Phone Number"
+                              id="mobileNumber"
+                              name="mobileNumber"
+                            />
+                          </>
+                        )}
                         <TextboxField
                           type="password"
                           label="Password"
@@ -104,6 +148,7 @@ const LoginFeature = () => {
                           </button>
                         </div>
                       </div>
+
                       <div className="divider">OR</div>
                       <div className="form-control">
                         <Link to="/register" className="btn btn-secondary">

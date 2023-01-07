@@ -16,7 +16,7 @@ export const buildApiEmployeePayload = (values) => {
     name: values.name,
     mobile: values.mobile,
     altMobile: values.altMobile,
-    password: "docMacMem",
+    password: "1010",
     gender: values.gender,
     wages: values.wages,
     referal: values.referal,

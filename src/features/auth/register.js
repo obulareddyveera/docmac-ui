@@ -9,6 +9,7 @@ import TextboxField from "../../components/fields/textboxField";
 import { checkDuplicateEmailAsync, registerClinicAsync } from "./auth.slice";
 import { Link } from "react-router-dom";
 import DocMacFreeCaptionLogo from "../../components/logo/freeCapLogo";
+import MobileField from "../../components/fields/mobileField";
 
 const RegisterAuthFeature = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,10 @@ const RegisterAuthFeature = () => {
         errors: { primaryContactEmail: "Email already registered" },
       });
     } else if (duplicateEmails && duplicateEmails.length === 0) {
-      dispatch(registerClinicAsync(state.values));
+      dispatch(registerClinicAsync({
+        ...state.values,
+        primaryContactMobile: state.values.primaryContactMobile.replaceAll(' ', '').trim()
+      }));
     }
   }, [duplicateEmails]);
 
@@ -100,11 +104,11 @@ const RegisterAuthFeature = () => {
                   if (
                     !values.primaryContactMobile ||
                     (values.primaryContactMobile &&
-                      values.primaryContactMobile.trim().length === 0)
+                      values.primaryContactMobile.replaceAll(' ', '').trim().length === 0)
                   ) {
                     errors.primaryContactMobile = "Required";
                   } else if (
-                    !values.primaryContactMobile.match(
+                    !values.primaryContactMobile.replaceAll(' ', '').trim().match(
                       /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/
                     )
                   ) {
@@ -131,9 +135,9 @@ const RegisterAuthFeature = () => {
                       values.primaryContactPassword.trim().length === 0)
                   ) {
                     errors.primaryContactPassword = "Required";
-                  } else if (values.primaryContactPassword.length < 8) {
+                  } else if (values.primaryContactPassword.length < 4) {
                     errors.primaryContactPassword =
-                      "Please enter at least 8 digit passcode";
+                      "Please enter at least 4 digit passcode";
                   }
 
                   return errors;
@@ -179,7 +183,7 @@ const RegisterAuthFeature = () => {
                             name="primaryContactEmail"
                             state={state}
                           />
-                          <TextboxField
+                          <MobileField
                             label="Mobile"
                             placeholder="Mobile"
                             id="primaryContactMobile"

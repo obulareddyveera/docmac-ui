@@ -68,7 +68,9 @@ const EmployeeTable = ({ rows, count }) => {
               {!rows ||
                 (rows.length === 0 && (
                   <tr>
-                    <th colSpan={7}>No Data Found</th>
+                    <th colSpan={8} className="text-center">
+                      No Data Found
+                    </th>
                   </tr>
                 ))}
               {rows &&
