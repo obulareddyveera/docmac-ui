@@ -30,13 +30,13 @@ export const authSlice = createSlice({
       .addCase(postEmployeeAsync.fulfilled, (state, action) => {
         const { data } = action.payload;
         state.status = EMPLOYEE_SLICE_STATE.POST_API_EMPLOYEE_FULLFILLED;
-        state.item = data.item;
+        state.item = null;
         state.errorslice = data.error;
       })
       .addCase(putEmployeeAsync.fulfilled, (state, action) => {
         const { data } = action.payload;
         state.status = EMPLOYEE_SLICE_STATE.PUT_API_EMPLOYEE_FULLFILLED;
-        state.item = data.item;
+        state.item = null;
         state.errorslice = data.error;
       })
       .addCase(fetchAsync.fulfilled, (state, action) => {

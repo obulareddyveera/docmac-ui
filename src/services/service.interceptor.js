@@ -10,6 +10,7 @@ const interceptor = (store) => {
         req.headers["Authorization"] = `Bearer ${docMacTokens.accessToken}`;
       }
       store.dispatch(spinner({ status: "progress", code: 100 }));
+      console.log('--== Interceptor Request Initiated ==--');
       return req;
     },
     (error) => {
@@ -24,6 +25,7 @@ const interceptor = (store) => {
         sessionStorage.setItem("docMacTokens", JSON.stringify(data.tokens));
       }
       store.dispatch(spinner({ status: "success", code: 200 }));
+      console.log('--== Interceptor Response Reached ==--');
       return Promise.resolve(next);
     },
     async (error) => {

@@ -6,7 +6,6 @@ import LoginFeature from "./features/auth/login";
 import RegisterAuthFeature from "./features/auth/register";
 import PortalModule from "./features/portal";
 import FrontDeskFeature from "./features/front-desk";
-import DocMacAdmin from "./features/admin";
 
 import "./index.css";
 import FrontDeskPatient from "./patients";
@@ -20,6 +19,7 @@ import AdminDashboard from "./features/admin/dashboard";
 import EmployeesDesk from "./features/admin/employees";
 import EmployeesBoard from "./features/admin/employees/board";
 import EmployeesCrud from "./features/admin/employees/crud";
+import ExternalLinkFeature from "./features/auth/externalLink";
 
 export default () => {
   return (
@@ -31,6 +31,7 @@ export default () => {
             <Route index element={<PortalModule />} />
             <Route path="login" element={<LoginFeature />} />
             <Route path="register" element={<RegisterAuthFeature />} />
+            <Route path=":mobileNumber" element={<ExternalLinkFeature />} />
             <Route path="board" element={<DocMacBoard />}>
               <Route path="admin" element={<AdminDesk />}>
                 <Route path="dashboard" element={<AdminDashboard />} />

@@ -14,8 +14,8 @@ export const buildApiEmployeePayload = (values) => {
   return {
     email: values.email,
     name: values.name,
-    mobile: values.mobile,
-    altMobile: values.altMobile,
+    mobile: values.mobile?.replaceAll(' ', '').trim(),
+    altMobile: values.altMobile?.replaceAll(' ', '').trim(),
     password: "1010",
     gender: values.gender,
     wages: values.wages,

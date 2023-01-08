@@ -8,7 +8,7 @@ const LayoutTemplate = ({ children }) => {
   return (
     <>
       <div className="hidden md:flex">
-        <div className="w-1/6 bg-portalBg flex flex-col justify-between">
+        <div className="w-1/6 bg-portalBg flex flex-col">
           <div className="flex items-center justify-center text-white px-5 py-4">
             <NavbarLogo />
           </div>
