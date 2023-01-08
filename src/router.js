@@ -20,6 +20,7 @@ import EmployeesDesk from "./features/admin/employees";
 import EmployeesBoard from "./features/admin/employees/board";
 import EmployeesCrud from "./features/admin/employees/crud";
 import ExternalLinkFeature from "./features/auth/externalLink";
+import WebWhatsapp from "./features/web-whatsapp";
 
 export default () => {
   return (
@@ -40,6 +41,7 @@ export default () => {
                   <Route path=":personId" element={<EmployeesCrud />} />
                 </Route>
               </Route>
+              <Route path="webWhatsapp" element={<WebWhatsapp />} />
             </Route>
             <Route path="frontdesk" element={<FrontDeskFeature />}>
               <Route index element={<ActiveTabView />} />

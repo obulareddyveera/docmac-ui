@@ -3,11 +3,13 @@ import {
   faArrowDown19,
   faArrowRightFromBracket,
   faArrowUp,
+  faBank,
   faCaretDown,
   faCaretUp,
   faCashRegister,
   faDesktopAlt,
   faGear,
+  faMessage,
   faUserEdit,
   faUserNinja,
   faUsersGear,
@@ -24,7 +26,6 @@ const MenuOptions = () => {
         opt.isActive ? " bg-success hover:bg-emerald-300" : "hover:bg-info"
       }`}
     >
-      
       <FontAwesomeIcon icon={opt.icon} className="w-5 h-5 opacity-75" />
       <span className="ml-3 text-sm font-medium"> {opt.displayName} </span>
     </Link>
@@ -39,13 +40,18 @@ const MenuOptions = () => {
           link: "/board/admin/dashboard",
         },
         {
+          displayName: "Web-Whatsapp",
+          icon: faMessage,
+          link: "/board/webWhatsapp",
+        },
+        {
           displayName: "Front Desk",
           icon: faDesktopAlt,
           link: "/frontdesk",
         },
         {
           displayName: "Accounts",
-          icon: faDesktopAlt,
+          icon: faBank,
           link: "/frontdesk",
         },
         {
