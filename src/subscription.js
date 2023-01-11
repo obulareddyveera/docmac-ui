@@ -15,7 +15,8 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 function sendSubscription(subscription) {
-  return fetch(`${process.env.REACT_APP_API_URL}/api/web-whatsapp/subscribe`, {
+  const host = process.env.DOCMAC_API_URL || 'http://localhost:5000'
+  return fetch(`${host}/api/web-whatsapp/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
