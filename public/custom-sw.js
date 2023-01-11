@@ -1,3 +1,4 @@
+var self = this;
 self.addEventListener("push", (event) => {
   const data = event.data.json();
   const options = {
