@@ -91,19 +91,19 @@ const LoginFeature = () => {
                 {({ isValid, touched, values, handleBlur, handleChange }) => (
                   <>
                     <div className="flex flex-col w-full border-opacity-50">
-                      <div class="flex justify-end">
-                        <div class="form-control">
-                          <label class="cursor-pointer label justify-center">
+                      <div className="flex justify-end">
+                        <div className="form-control">
+                          <label className="cursor-pointer label justify-center">
                             <input
                               id="isEmailAcceptedSignIn"
                               name="isEmailAcceptedSignIn"
                               type="checkbox"
-                              class="toggle toggle-accent"
+                              className="toggle toggle-accent"
                               checked={values.isEmailAcceptedSignIn}
                               onBlur={handleBlur}
                               onChange={handleChange}
                             />
-                            <span class="label-text ml-1">
+                            <span className="label-text ml-1">
                               Email accepted sign-in
                             </span>
                           </label>

@@ -6,7 +6,6 @@ import { notify } from "../../services/service.slice";
 const NotifyElement = () => {
   const dispatch = useDispatch();
   const notifyService = useSelector((state) => state.service.notify);
-  console.log("--== notifyService ", notifyService);
   useEffect(() => {
     if (notifyService.kickStartTime) {
       setTimeout(() => {
@@ -25,7 +24,7 @@ const NotifyElement = () => {
       {notifyService && notifyService.status === "show" && (
         <div className="max-w-20 m-4">
           <div
-            class={`alert ${
+            className={`alert ${
               notifyService.className
                 ? notifyService.className
                 : "alert-success"
@@ -42,7 +41,7 @@ const NotifyElement = () => {
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="stroke-current flex-shrink-0 h-6 w-6"
+                  className="stroke-current flex-shrink-0 h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                 >

@@ -10,7 +10,6 @@ const EmployeesBoard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("--== EmployeesBoard :::: NativeField ==--");
     dispatch(fetchAsync());
   }, []);
   return (

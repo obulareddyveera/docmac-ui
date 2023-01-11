@@ -3,7 +3,9 @@ import counterReducer from "../features/counter/counterSlice";
 import serviceReducer from "./service.slice";
 import authReducer from "../features/auth/auth.slice";
 import employeeReducer from "../features/admin/employees/slice";
-import webWhatsappReducer from "../features/web-whatsapp/slice";
+import webWhatsappReducer, {
+  pollWhatsappClientIdStatusMiddleware,
+} from "../features/web-whatsapp/slice";
 import serviceInterceptor from "./service.interceptor";
 
 export const store = configureStore({
@@ -14,6 +16,10 @@ export const store = configureStore({
     webWhatsapp: webWhatsappReducer,
     service: serviceReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(
+      pollWhatsappClientIdStatusMiddleware.middleware
+    ),
 });
 
 serviceInterceptor.interceptor(store);

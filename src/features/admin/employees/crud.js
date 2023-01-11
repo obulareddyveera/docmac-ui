@@ -19,7 +19,10 @@ import { notify } from "../../../services/service.slice";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 
 const EmployeesCrud = () => {
-  const { errorslice, status, item } = useSelector((state) => state.employee);
+  const { errorslice, status, item, person } = useSelector((state) => ({
+    ...state.employee,
+    ...state.auth,
+  }));
   const [state, setState] = useState({
     initialValues: {
       supportedBanks: [
@@ -45,7 +48,6 @@ const EmployeesCrud = () => {
   const dispatch = useDispatch();
   const { from, personId } = location.state || {};
   const employeeEntity = useSelector((state) => state.employee);
-  console.log("---==> employeeEntity ", employeeEntity);
   useEffect(() => {
     if (
       employeeEntity &&
@@ -75,7 +77,7 @@ const EmployeesCrud = () => {
   }, [personId]);
 
   useEffect(() => {
-    if (item) {
+    if (item && person.clinicId) {
       const selectedPrivsName =
         item.Privs && item.Privs.length > 0
           ? item.Privs.map((entity) => entity.name)
@@ -113,12 +115,13 @@ const EmployeesCrud = () => {
             activeStepIndex: 0,
             salary: "",
             referal: "",
+            clinicId: person.clinicId,
             ...item,
           },
         };
       });
     }
-  }, [item]);
+  }, [item, person]);
 
   return (
     <>

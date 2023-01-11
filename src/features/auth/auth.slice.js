@@ -1,8 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ServiceBase from "../../services/index";
 import { DOCMAC_API_URL } from "../../config";
+
+export const AUTH_SLICE_STATE = {
+  AUTH_SLICE_TOKEN_INIT: "AUTH_SLICE_TOKEN_INIT",
+  AUTH_SLICE_TOKEN_VALID: "AUTH_SLICE_TOKEN_VALID",
+  AUTH_SLICE_TOKEN_INVALID: "AUTH_SLICE_TOKEN_INVALID",
+};
 const initialState = {
-  status: "",
+  status: AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_INIT,
   person: {},
   clinic: {},
 };
@@ -23,18 +29,26 @@ export const authSlice = createSlice({
         state.person = data.person;
         state.clinic = data.clinic;
       })
-      .addCase(loginClinicAsync.pending, (state, action) => {
-        state.exception = undefined;
-      })
       .addCase(loginClinicAsync.fulfilled, (state, action) => {
         const { data } = action.payload;
-        state.exception = undefined;
-        state.person = data.person;
-        state.clinic = data.clinic;
+        if (data.person && data.person[0]) {
+          state.person = data.person[0];
+          state.clinic = data.clinic[0];
+          state.status = AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_VALID;
+        } else {
+          state.status = AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_INVALID;
+        }
       })
-      .addCase(loginClinicAsync.rejected, (state, action) => {
-        state.exception = action.error;
-      });
+      .addCase(fetchTokenDetails.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        if (data.person && data.person[0]) {
+          state.person = data.person[0];
+          state.clinic = data.clinic[0];
+          state.status = AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_VALID;
+        } else {
+          state.status = AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_INVALID;
+        }
+      })
   },
 });
 
@@ -75,5 +89,14 @@ export const loginClinicAsync = createAsyncThunk(
     return data;
   }
 );
+
+export const fetchTokenDetails = createAsyncThunk(
+  "/token/details",
+  async () => {
+    const data = await ServiceBase.get(`${DOCMAC_API_URL}/token/details`);
+    return data;
+  }
+);
+
 export const { registerClinic, checkDuplicateEmail } = authSlice.actions;
 export default authSlice.reducer;

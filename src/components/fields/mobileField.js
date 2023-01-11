@@ -30,7 +30,7 @@ const MobileField = ({ errorslice, id, label, ...props }) => {
             </span>
           )}
         </label>
-        <label class="input-group">
+        <label className="input-group">
           <span>+91 </span>
           <InputMask
             mask="999 9999 999"

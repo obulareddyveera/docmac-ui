@@ -25,6 +25,7 @@ export const buildApiEmployeePayload = (values) => {
     dob: values.dob,
     aadhar: values.aadhar,
     panNumber: values.panNumber,
+    clinicId: values.clinicId,
     type: values.type,
     Privs: privsList,
     ProfileSnap: values.ProfileSnap.map((entity) => {

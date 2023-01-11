@@ -44,7 +44,7 @@ const EmployeeTable = ({ rows, count }) => {
   };
   const getStatusBadge = (status) => {
     if (status === "DRAFT") {
-      return <div class="badge badge-secondary">{status}</div>;
+      return <div className="badge badge-secondary">{status}</div>;
     }
   };
   return (

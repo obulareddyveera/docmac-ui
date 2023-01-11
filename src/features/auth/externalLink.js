@@ -10,16 +10,15 @@ import TextboxField from "../../components/fields/textboxField";
 const ExternalLinkFeature = () => {
   const params = useParams();
 
-  console.log("--== params ", params, params.mobileNumber);
   return (
     <>
       <div className="flex flex-col md:justify-center md:align-center h-screen bg-[#eff0ea] md:bg-base-100">
         <div className="flex justify-center items-center">
-          <div class="card lg:card-side bg-[#eff0ea]">
+          <div className="card lg:card-side bg-[#eff0ea]">
             <figure>
               <img src="/banners/medicalPeopleStaff.jpg" alt="Album" />
             </figure>
-            <div class="card-body">
+            <div className="card-body">
               {params && params.mobileNumber && (
                 <Formik
                   initialValues={{
@@ -52,7 +51,7 @@ const ExternalLinkFeature = () => {
                   {({ isValid, touched, values, handleBlur, handleChange }) => (
                     <>
                       <div className="flex flex-col items-center">
-                        <h2 class="card-title border-b-2 border-base-100 mb-4">
+                        <h2 className="card-title border-b-2 border-base-100 mb-4">
                           <NavbarLogo />
                         </h2>
                         <MobileField
