@@ -2,10 +2,10 @@ import {
   createAsyncThunk,
   createSlice,
   createListenerMiddleware,
-  createAction,
 } from "@reduxjs/toolkit";
-import ServiceBase from "../../services/index";
 import { DOCMAC_API_URL } from "../../config";
+
+console.log('--== DOCMAC_API_URL ', DOCMAC_API_URL);
 
 const initialState = {
   status: null,
