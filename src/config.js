@@ -1,1 +1,1 @@
-export const DOCMAC_API_URL = process.env.DOCMAC_API_URL || 'https://docmac-serve.onrender.com';
+export const DOCMAC_API_URL = process.env.DOCMAC_API_URL || 'http://localhost:5000';

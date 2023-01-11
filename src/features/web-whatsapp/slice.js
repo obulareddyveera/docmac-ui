@@ -55,7 +55,8 @@ export const authSlice = createSlice({
         };
       })
       .addCase(getWebWhatsappQrCodeAsync.fulfilled, (state, action) => {
-        const { qrCode, error, clientId } = action.payload.qrCode;
+        console.log('--== getWebWhatsappQrCodeAsync ==-- ', action);
+        const { qrCode, error, clientId } = action.payload;
         return {
           ...state,
           status: null,
