@@ -34,7 +34,7 @@ export const authSlice = createSlice({
     setWhatsappClientIdReadyState: (state, action) => {
       return {
         ...state,
-        state: "READy",
+        state: "CONNECTED",
       };
     },
   },

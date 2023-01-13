@@ -17,7 +17,7 @@ const LayoutTemplate = ({ children }) => {
     } else if (auth.status === AUTH_SLICE_STATE.AUTH_SLICE_TOKEN_INIT) {
       dispatch(fetchTokenDetails())
     }
-  }, [auth])
+  }, [])
   return (
     <>
       <div className="hidden md:flex">
